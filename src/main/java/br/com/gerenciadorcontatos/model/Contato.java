@@ -30,6 +30,7 @@ public class Contato {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ToString.Exclude
 	@EqualsAndHashCode.Include
+	@Column(name = "ID_CONTATO")
 	private Long id;
 
 	@Deprecated

@@ -33,6 +33,7 @@ public class Endereco {
 	@ToString.Exclude
 	@EqualsAndHashCode.Include
 	@JsonIgnore
+	@Column(name = "ID_ENDERECO")
 	private Long id;
 	
 	@Deprecated
@@ -49,7 +50,7 @@ public class Endereco {
 	private String cep;
 	
     @ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "ID_CONTATO")
 	private Contato contato;
 	
 	@Column(name = "DT_CRIADO")
