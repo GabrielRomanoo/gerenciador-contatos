@@ -21,10 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gerenciadorcontatos.model.dto.ContatoDto;
 import br.com.gerenciadorcontatos.model.entity.Contato;
+import br.com.gerenciadorcontatos.model.form.ContatoForm;
 import br.com.gerenciadorcontatos.service.implementation.ContatoServiceImplementation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/contatos")
+@RequestMapping("/contato")
+@Tag(name = "Contato", description = "Endpoints para manipuação de um Contato")
 public class ContatoController {
 	
 	private ContatoServiceImplementation contatoService;
@@ -35,14 +39,16 @@ public class ContatoController {
 	}
 	
 	@PostMapping
+	@Operation(description = "Grava um Contato")
 	@Transactional 
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContatoDto form) {
-		Contato aluno = form.converter();
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContatoForm form) {
+		Contato aluno = form.converterToEntity();
 		contatoService.create(aluno);
 		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping //traz uma lista, se tiver o codigo da turma, traz apenas um
+	@Operation(description = "Lista um ou todos os contatos")
 	public ResponseEntity<List<ContatoDto>> lista(@RequestParam(required = false) Long id) { 
 		if (id != null) {
 			Contato contato = contatoService.findById(id);
@@ -53,6 +59,7 @@ public class ContatoController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@Operation(description = "Deleta um contato")
 	@Transactional 
 	public ResponseEntity<?> remover(@PathVariable Long id) {
 		if (contatoService.findById(id) != null) {
@@ -63,11 +70,12 @@ public class ContatoController {
 	}
 	
 	@PutMapping("/{id}")
+	@Operation(description = "Atualiza um os dados de um contato")
 	@Transactional //avisa pro spring que é pra commitar a transacao, Métodos anotados com @Transactional serão executados dentro de um contexto transacional, Ao finalizar o método, o Spring efetuará o commit automático da transação, caso nenhuma exception tenha sido lançada.
-	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody @Valid ContatoDto form) { //preciso colocar no pom a dependencia de validacao
+	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody @Valid ContatoForm form) { //preciso colocar no pom a dependencia de validacao
 		Contato contatoAtual = contatoService.findById(id);
 		if (contatoAtual != null) {
-			Contato contatoAtualizado = form.converter();
+			Contato contatoAtualizado = form.converterToEntity();
 			contatoService.update(contatoAtualizado);
 			return ResponseEntity.ok().build();
 		}
@@ -75,11 +83,12 @@ public class ContatoController {
 	}
 	
 	@PatchMapping("/{id}")
+	@Operation(description = "Atualiza parcialmente os dados de um contato")
 	@Transactional //avisa pro spring que é pra commitar a transacao, Métodos anotados com @Transactional serão executados dentro de um contexto transacional, Ao finalizar o método, o Spring efetuará o commit automático da transação, caso nenhuma exception tenha sido lançada.
-	public ResponseEntity<?> atualizarParcial(@PathVariable Long id, @RequestBody @Valid ContatoDto form) { //preciso colocar no pom a dependencia de validacao
+	public ResponseEntity<?> atualizarParcial(@PathVariable Long id, @RequestBody @Valid ContatoForm form) { //preciso colocar no pom a dependencia de validacao
 		Contato contatoAtual = contatoService.findById(id);
 		if (contatoAtual != null) {
-			Contato contatoAtualizado = form.converter();
+			Contato contatoAtualizado = form.converterToEntity();
 			contatoService.update(contatoAtualizado);
 			return ResponseEntity.ok().build();
 		}

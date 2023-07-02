@@ -34,24 +34,24 @@ public class Contato {
 	@Column(name = "ID_CONTATO")
 	private Long id;
 
-	@Column(name = "NM_CONTATO")
+	@Column(name = "NM_CONTATO", nullable = false)
 	private String nome;
 
 	@Column(name = "NM_EMAIL")
 	private String email;
 
-	@Column(name = "NR_TELEFONE")
+	@Column(name = "NR_TELEFONE", nullable = false)
 	private Integer telefone;
 
 	@Column(name = "DT_DATA_NASCIMENTO")
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 
 	@OneToMany(mappedBy = "contato", cascade = CascadeType.ALL)
 	private List<Endereco> listaEnderecos;
 
-	@Column(name = "DT_CRIADO")
-	private LocalDate criadoEm = LocalDate.now();
+	@Column(name = "DT_CRIADO", nullable = false, updatable = false)
+	private final LocalDate criadoEm = LocalDate.now();
 
-	@Column(name = "DT_ATUALIZADO")
+	@Column(name = "DT_ATUALIZADO", nullable = false)
 	private LocalDate atualizadoEm = LocalDate.now();
 }

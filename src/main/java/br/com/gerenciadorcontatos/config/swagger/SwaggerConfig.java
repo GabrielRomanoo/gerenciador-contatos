@@ -1,4 +1,4 @@
-package br.com.gerenciadorcontatos.config;
+package br.com.gerenciadorcontatos.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

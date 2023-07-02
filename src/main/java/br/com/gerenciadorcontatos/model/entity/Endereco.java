@@ -51,8 +51,8 @@ public class Endereco {
 	private Contato contato;
 	
 	@Column(name = "DT_CRIADO")
-	private LocalDate criadoEm = LocalDate.now();
+	private final LocalDate criadoEm = LocalDate.now();
 	
 	@Column(name = "DT_ATUALIZADO")
-	private LocalDate atualizadoEm = LocalDate.now();
+	private final LocalDate atualizadoEm = LocalDate.now();
 }
