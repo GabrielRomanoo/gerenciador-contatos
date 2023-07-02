@@ -1,4 +1,4 @@
-package br.com.gerenciadorcontatos.model;
+package br.com.gerenciadorcontatos.model.entity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +22,7 @@ import lombok.ToString;
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "CONTATO")
 public class Contato {
@@ -32,10 +33,6 @@ public class Contato {
 	@EqualsAndHashCode.Include
 	@Column(name = "ID_CONTATO")
 	private Long id;
-
-	@Deprecated
-	public Contato() {
-	}
 
 	@Column(name = "NM_CONTATO")
 	private String nome;

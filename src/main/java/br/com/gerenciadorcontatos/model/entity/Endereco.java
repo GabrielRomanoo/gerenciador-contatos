@@ -1,4 +1,4 @@
-package br.com.gerenciadorcontatos.model;
+package br.com.gerenciadorcontatos.model.entity;
 
 import java.time.LocalDate;
 
@@ -24,6 +24,7 @@ import lombok.ToString;
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "ENDERECO")
 public class Endereco {
@@ -35,10 +36,6 @@ public class Endereco {
 	@JsonIgnore
 	@Column(name = "ID_ENDERECO")
 	private Long id;
-	
-	@Deprecated
-	public Endereco() {
-	}
 	
 	@Column(name = "NM_RUA")
 	private String rua;
