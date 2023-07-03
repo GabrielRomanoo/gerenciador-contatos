@@ -32,9 +32,8 @@ public class ContatoServiceImplementation implements ContatoService<Contato>{
 	}
 
 	@Override
-	public Contato findById(BigInteger id) {
-		Optional<Contato> _aluno = contatoRepository.findById(id);
-		return _aluno.orElse(null);
+	public Optional<Contato> findById(BigInteger id) {
+		return contatoRepository.findById(id);
 	}
 
 	@Override
@@ -43,11 +42,12 @@ public class ContatoServiceImplementation implements ContatoService<Contato>{
 	}
 
 	@Override
-	public boolean update(Contato contato) {
-		if (!contatoRepository.existsById(contato.getId())) {
+	public boolean update(BigInteger id, Contato contato) {
+		if (!contatoRepository.existsById(id)) {
 			return false;
 		}
 		contato.setAtualizadoEm(LocalDate.now());
+		contato.setId(id);
 		contatoRepository.save(contato);
 		return true;
 	}

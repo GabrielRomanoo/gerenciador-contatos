@@ -1,5 +1,6 @@
 package br.com.gerenciadorcontatos.config.validation;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +22,46 @@ public class ErroDeValidacaoHandler {
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST) //fala que deve retornar 400, se nao tivesse feito isso, o spring iria entender que tratamos o erro, e iria retornar 200
 	@ExceptionHandler(MethodArgumentNotValidException.class) //diz para o spring que o metodo abaixo deve ser chamado quando houver alguma exeção dentro de algum controller
-	public List<ErroValidation> handleBadRequest(MethodArgumentNotValidException exception) {
-		List<ErroValidation> dto = new ArrayList<ErroValidation>();
+	public List<ErroBody> handleBadRequest(MethodArgumentNotValidException exception) {
+		List<ErroBody> dto = new ArrayList<ErroBody>();
 		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 		
 		fieldErrors.forEach(e -> {
 			String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-			ErroValidation erro = new ErroValidation(e.getField(), mensagem);
+			ErroBody erro = new ErroBody(e.getField(), mensagem);
 			dto.add(erro);
 		});
 		return dto;
 	}
+	
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(IllegalAccessException.class)
+	public List<ErroBody> handleBadRequest(IllegalAccessException exception) {
+		List<ErroBody> dto = new ArrayList<ErroBody>();
+		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+		
+		fieldErrors.forEach(e -> {
+			String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
+			ErroBody erro = new ErroBody(e.getField(), mensagem);
+			dto.add(erro);
+		});
+		return dto;
+	}
+	
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(InvocationTargetException.class)
+	public List<ErroBody> handleBadRequest(InvocationTargetException exception) {
+		List<ErroBody> dto = new ArrayList<ErroBody>();
+		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+		
+		fieldErrors.forEach(e -> {
+			String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
+			ErroBody erro = new ErroBody(e.getField(), mensagem);
+			dto.add(erro);
+		});
+		return dto;
+	}
+	
 	
 	/* esta classe funciona como uma espécie de interceptador, 
 	 * sempre que tiver um erro, o spring virá nela para ser tratadp */

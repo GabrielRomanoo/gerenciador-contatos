@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ErroValidation {
+public class ErroBody {
 
 	private String campo;
 	private String mensagem;

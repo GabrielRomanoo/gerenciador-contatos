@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.gerenciadorcontatos.model.entity.Contato;
@@ -33,7 +35,7 @@ public class ContatoDto {
 		return ContatoDto.builder().id(contato.getId()).nome(contato.getNome()).email(contato.getEmail())
 				.telefone(contato.getTelefone()).dataNascimento(contato.getDataNascimento())
 				.enderecos(contato.getListaEnderecos()).build();
-	}
+	}	
 
 	public static List<ContatoDto> converterLista(List<Contato> contatos) {
 		return contatos.stream().map(contato -> ContatoDto.converter(contato)).collect(Collectors.toList());

@@ -3,7 +3,6 @@ package br.com.gerenciadorcontatos.model.form;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
