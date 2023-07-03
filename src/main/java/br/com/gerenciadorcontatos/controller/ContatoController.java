@@ -1,6 +1,7 @@
 package br.com.gerenciadorcontatos.controller;
 
 import java.beans.FeatureDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,7 @@ import br.com.gerenciadorcontatos.model.dto.ContatoDto;
 import br.com.gerenciadorcontatos.model.entity.Contato;
 import br.com.gerenciadorcontatos.model.form.ContatoForm;
 import br.com.gerenciadorcontatos.service.implementation.ContatoServiceImplementation;
+import br.com.gerenciadorcontatos.util.NullAwareBeanUtilsBean;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -43,6 +45,8 @@ import lombok.RequiredArgsConstructor;
 public class ContatoController {
 
 	private final ContatoServiceImplementation contatoService;
+	
+	private final NullAwareBeanUtilsBean utilsBean;
 
 	@PostMapping
 	@Operation(
@@ -126,9 +130,13 @@ public class ContatoController {
 		if (contatoAtual != null) {
 			Contato contatoAtualizado = form.converterToEntity();
 			contatoAtualizado.setId(contatoAtual.getId());
-			//TO DO FAZER LOGICA ESPECIFICA DO PATH
-			BeanUtils.copyProperties(contatoAtualizado, contatoAtual, getNullPropertyNames(contatoAtualizado));
-			contatoService.update(contatoAtualizado);
+			try {
+				utilsBean.copyProperties(contatoAtual, contatoAtualizado);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			
+			contatoService.update(contatoAtual);
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
