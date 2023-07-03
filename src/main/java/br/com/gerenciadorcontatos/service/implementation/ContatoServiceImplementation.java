@@ -1,8 +1,11 @@
 package br.com.gerenciadorcontatos.service.implementation;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +25,14 @@ public class ContatoServiceImplementation implements ContatoService<Contato>{
 	}
 
 	@Override
+    @Transactional 
 	public Contato create(Contato novoContato) {
 		contatoRepository.save(novoContato);
 		return novoContato;
 	}
 
 	@Override
-	public Contato findById(Long id) {
+	public Contato findById(BigInteger id) {
 		Optional<Contato> _aluno = contatoRepository.findById(id);
 		return _aluno.orElse(null);
 	}
@@ -49,7 +53,7 @@ public class ContatoServiceImplementation implements ContatoService<Contato>{
 	}
 
 	@Override
-	public boolean delete(Long id) {
+	public boolean delete(BigInteger id) {
 		if (!contatoRepository.existsById(id)) {
 			return false;
 		}

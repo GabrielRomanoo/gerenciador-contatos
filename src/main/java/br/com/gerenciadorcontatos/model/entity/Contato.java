@@ -1,5 +1,6 @@
 package br.com.gerenciadorcontatos.model.entity;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -28,9 +29,9 @@ import lombok.NoArgsConstructor;
 public class Contato {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID_CONTATO")
-	private Long id;
+	private BigInteger id;
 
 	@Column(name = "NM_CONTATO", nullable = false)
 	private String nome;
@@ -45,7 +46,7 @@ public class Contato {
 	private LocalDate dataNascimento;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "contato", referencedColumnName = "ID_CONTATO")
+	@JoinColumn(name = "contato")
 	private List<Endereco> listaEnderecos;
 
 	@Column(name = "DT_CRIADO", nullable = false, updatable = false)

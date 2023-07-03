@@ -1,5 +1,6 @@
 package br.com.gerenciadorcontatos.model.dto;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ import lombok.Data;
 @Builder
 public class ContatoDto {
 
-	private Long id;
+	private BigInteger id;
 
 	private String nome;
 
