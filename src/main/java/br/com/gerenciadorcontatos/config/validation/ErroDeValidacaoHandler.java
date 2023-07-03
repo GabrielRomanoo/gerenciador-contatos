@@ -21,7 +21,7 @@ public class ErroDeValidacaoHandler {
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST) //fala que deve retornar 400, se nao tivesse feito isso, o spring iria entender que tratamos o erro, e iria retornar 200
 	@ExceptionHandler(MethodArgumentNotValidException.class) //diz para o spring que o metodo abaixo deve ser chamado quando houver alguma exeção dentro de algum controller
-	public List<ErroValidation> handle(MethodArgumentNotValidException exception) {
+	public List<ErroValidation> handleBadRequest(MethodArgumentNotValidException exception) {
 		List<ErroValidation> dto = new ArrayList<ErroValidation>();
 		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 		

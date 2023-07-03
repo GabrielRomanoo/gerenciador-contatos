@@ -3,8 +3,6 @@ package br.com.gerenciadorcontatos.model.form;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import br.com.gerenciadorcontatos.model.entity.Endereco;
@@ -16,19 +14,14 @@ import lombok.Data;
 @Data
 public class EnderecoForm {
 
-	@NotNull
-	@NotBlank
-	@Schema(required = true, description = "Nome da Rua")
+	@Schema(required = false, description = "Nome da Rua")
 	private String rua;
 
-	@NotNull
-	@Schema(required = true, description = "Número do endereço")
+	@Schema(required = false, description = "Número do endereço")
 	private Integer numero;
 
-	@NotNull
-	@NotBlank
 	@Pattern(regexp = "\\d{5}-\\d{3}")
-	@Schema(required = true, description = "Número de CEP")
+	@Schema(required = false, example = "00000-000", description = "Número de CEP")
 	private String cep;
 
 	public static List<Endereco> converterToEntity(List<EnderecoForm> enderecos) {

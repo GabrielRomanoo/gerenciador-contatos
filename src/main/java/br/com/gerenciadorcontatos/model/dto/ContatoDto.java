@@ -21,7 +21,7 @@ public class ContatoDto {
 
 	private String email;
 
-	private Integer telefone;
+	private String telefone;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataNascimento;
