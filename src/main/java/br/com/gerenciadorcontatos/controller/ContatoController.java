@@ -51,9 +51,8 @@ public class ContatoController {
 			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseEntity.class))) })
 	@Transactional
 	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContatoForm form, UriComponentsBuilder uriBuilder) {
-		Contato contato = form.converterToEntity();
-		contatoService.create(form.converterToEntity());
-		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(contato.getId()).toUri();
+		Contato contato = contatoService.create(form.converterToEntity());
+		URI uri = uriBuilder.path("/contato/{id}").buildAndExpand(contato.getId()).toUri();
 		return ResponseEntity.created(uri).body(ContatoDto.converter(contato));
 	}
 

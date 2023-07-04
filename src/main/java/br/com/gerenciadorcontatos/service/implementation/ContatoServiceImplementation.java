@@ -23,8 +23,8 @@ public class ContatoServiceImplementation implements ContatoService<Contato> {
 	@Override
 	@Transactional
 	public Contato create(Contato novoContato) {
-		contatoRepository.save(novoContato);
-		return novoContato;
+		Contato savedContato = contatoRepository.save(novoContato);
+		return savedContato;
 	}
 
 	@Override
