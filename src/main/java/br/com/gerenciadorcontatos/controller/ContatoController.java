@@ -97,12 +97,9 @@ public class ContatoController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@PatchMapping("/atualiza/{id}")
+	@PatchMapping("/{id}")
 	@Operation(description = "Atualiza parcialmente os dados de um contato", tags = { "Contato" })
-	@Transactional // avisa pro spring que é pra commitar a transacao, Métodos anotados com
-					// @Transactional serão executados dentro de um contexto transacional, Ao
-					// finalizar o método, o Spring efetuará o commit automático da transação, caso
-					// nenhuma exception tenha sido lançada.
+	@Transactional // avisa pro spring que é pra commitar a transacao, Métodos anotados com @Transactional serão executados dentro de um contexto transacional, Ao finalizar o método, o Spring efetuará o commit automático da transação, caso nenhuma exception tenha sido lançada.
 	public ResponseEntity<?> atualizarParcial(
 			@PathVariable @Parameter(description = "O Id do contato a ser atualizado parcialmente.") BigInteger id,
 			@RequestBody ContatoForm form) throws IllegalAccessException, InvocationTargetException {
@@ -110,10 +107,10 @@ public class ContatoController {
 		if (contatoAtual.isPresent()) {
 			Contato contatoAtualizado = form.converterToEntity();
 
-			utilsBean.copyProperties(contatoAtual, contatoAtualizado);
+			utilsBean.copyProperties(contatoAtual.get(), contatoAtualizado);
 
 			contatoService.update(id, contatoAtual.get());
-			return ResponseEntity.ok(ContatoDto.converter(contatoAtualizado));
+			return ResponseEntity.ok(ContatoDto.converter(contatoAtual.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}

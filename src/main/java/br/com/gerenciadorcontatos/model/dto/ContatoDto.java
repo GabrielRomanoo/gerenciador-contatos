@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.web.util.UriComponentsBuilder;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.gerenciadorcontatos.model.entity.Contato;

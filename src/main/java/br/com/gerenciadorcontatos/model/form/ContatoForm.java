@@ -33,7 +33,7 @@ public class ContatoForm {
 	@Schema(required = true, example = "(xx) xxxxx-xxxx", nullable = false, description = "Número de telefone")
 	private String telefone;
 
-	//@Pattern(regexp = "^(0[1-9]|1\\d|2\\d|3[01])/(0[1-9]|1[0-2])/\\d{4}$")
+	@Pattern(regexp = "^(0[1-9]|1\\d|2\\d|3[01])/(0[1-9]|1[0-2])/\\d{4}$", message = "A data de nascimento deve estar no formato dd/MM/yyyy.")
 	@Schema(required = false, example = "dd/MM/yyyy", description = "Data de nascimento do Contato")
 	private String dataNascimento;
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,33 +35,15 @@ public class ErroDeValidacaoHandler {
 		return dto;
 	}
 	
-	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(IllegalAccessException.class)
-	public List<ErroBody> handleBadRequest(IllegalAccessException exception) {
-		List<ErroBody> dto = new ArrayList<ErroBody>();
-		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-		
-		fieldErrors.forEach(e -> {
-			String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-			ErroBody erro = new ErroBody(e.getField(), mensagem);
-			dto.add(erro);
-		});
-		return dto;
-	}
+    public ResponseEntity<String> handleIllegalAccessException(IllegalAccessException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocorreu um erro de acesso ilegal.");
+    }
 	
-	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(InvocationTargetException.class)
-	public List<ErroBody> handleBadRequest(InvocationTargetException exception) {
-		List<ErroBody> dto = new ArrayList<ErroBody>();
-		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-		
-		fieldErrors.forEach(e -> {
-			String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-			ErroBody erro = new ErroBody(e.getField(), mensagem);
-			dto.add(erro);
-		});
-		return dto;
-	}
+    public ResponseEntity<String> handleInvocationTargetException(InvocationTargetException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocorreu um erro durante a invocação do método.");
+    }
 	
 	
 	/* esta classe funciona como uma espécie de interceptador, 
