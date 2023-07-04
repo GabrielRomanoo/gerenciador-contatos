@@ -78,7 +78,7 @@ public class ContatoController {
 			@PathVariable @Parameter(description = "O Id do contato a ser deletado.") BigInteger id) {
 		if (contatoService.findById(id) != null) {
 			contatoService.delete(id);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
 	}
