@@ -1,4 +1,4 @@
-package br.com.gerenciadorcontatos.model.form;
+package br.com.gerenciadorcontatos.controller.form;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package br.com.gerenciadorcontatos.model.dto;
+package br.com.gerenciadorcontatos.controller.dto;
 
 import java.math.BigInteger;
 import java.time.LocalDate;

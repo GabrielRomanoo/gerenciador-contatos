@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gerenciadorcontatos.model.dto.ContatoDto;
+import br.com.gerenciadorcontatos.controller.dto.ContatoDto;
+import br.com.gerenciadorcontatos.controller.form.ContatoForm;
 import br.com.gerenciadorcontatos.model.entity.Contato;
-import br.com.gerenciadorcontatos.model.form.ContatoForm;
 import br.com.gerenciadorcontatos.service.implementation.ContatoServiceImplementation;
 import br.com.gerenciadorcontatos.util.NullAwareBeanUtilsBean;
 import io.swagger.v3.oas.annotations.Operation;

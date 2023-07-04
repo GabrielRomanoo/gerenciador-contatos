@@ -1,4 +1,4 @@
-package br.com.gerenciadorcontatos.model.dto;
+package br.com.gerenciadorcontatos.controller.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
