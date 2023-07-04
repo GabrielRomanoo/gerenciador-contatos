@@ -7,25 +7,21 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciadorcontatos.model.entity.Contato;
 import br.com.gerenciadorcontatos.repository.ContatoRepository;
 import br.com.gerenciadorcontatos.service.ContatoService;
+import lombok.RequiredArgsConstructor;
 
 @Service
-public class ContatoServiceImplementation implements ContatoService<Contato>{
-	
-	private ContatoRepository contatoRepository;
+@RequiredArgsConstructor
+public class ContatoServiceImplementation implements ContatoService<Contato> {
 
-	@Autowired
-	public ContatoServiceImplementation(ContatoRepository contatoRepository) {
-		this.contatoRepository = contatoRepository;
-	}
+	private final ContatoRepository contatoRepository;
 
 	@Override
-    @Transactional 
+	@Transactional
 	public Contato create(Contato novoContato) {
 		contatoRepository.save(novoContato);
 		return novoContato;
@@ -59,6 +55,18 @@ public class ContatoServiceImplementation implements ContatoService<Contato>{
 		}
 		contatoRepository.deleteById(id);
 		return true;
+	}
+
+	public Optional<List<Contato>> findByCep(String cep) {
+		return contatoRepository.findByListaEnderecos_Cep(cep);
+	}
+
+	public Optional<List<Contato>> findByRua(String rua) {
+		return contatoRepository.findByListaEnderecos_Rua(rua);
+	}
+
+	public Optional<List<Contato>> findByNumero(Integer numero) {
+		return contatoRepository.findByListaEnderecos_Numero(numero);
 	}
 
 }

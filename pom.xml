@@ -12,7 +12,7 @@
 	<groupId>br.com</groupId>
 	<artifactId>gerenciadorcontatos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>gerenciador-contatos</name>
 	<description>Projeto API REST gerenciador de contatos</description>
 	<properties>

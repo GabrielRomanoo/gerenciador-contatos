@@ -52,8 +52,7 @@ public class ContatoController {
 	@Transactional
 	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContatoForm form, UriComponentsBuilder uriBuilder) {
 		Contato contato = form.converterToEntity();
-		contatoService.create(contato);
-
+		contatoService.create(form.converterToEntity());
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(contato.getId()).toUri();
 		return ResponseEntity.created(uri).body(ContatoDto.converter(contato));
 	}
@@ -76,7 +75,7 @@ public class ContatoController {
 	@Transactional
 	public ResponseEntity<?> remover(
 			@PathVariable @Parameter(description = "O Id do contato a ser deletado.") BigInteger id) {
-		if (contatoService.findById(id) != null) {
+		if (contatoService.findById(id).isPresent()) {
 			contatoService.delete(id);
 			return ResponseEntity.noContent().build();
 		}
@@ -87,14 +86,13 @@ public class ContatoController {
 	@Operation(description = "Atualiza um os dados de um contato", tags = { "Contato" })
 	@Transactional
 	public ResponseEntity<?> atualizar(@PathVariable BigInteger id, @RequestBody @Valid ContatoForm form) {
-
 		Optional<Contato> contatoAtual = contatoService.findById(id);
-		if (contatoAtual.isPresent()) {
-			Contato contatoAtualizado = form.converterToEntity();
-			contatoService.update(id, contatoAtualizado);
-			return ResponseEntity.ok(ContatoDto.converter(contatoAtualizado));
+		if (!contatoAtual.isPresent()) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.notFound().build();
+		Contato contatoAtualizado = form.converterToEntity();
+		contatoService.update(id, contatoAtualizado);
+		return ResponseEntity.ok(ContatoDto.converter(contatoAtualizado));
 	}
 
 	@PatchMapping("/{id}")
@@ -104,14 +102,42 @@ public class ContatoController {
 			@PathVariable @Parameter(description = "O Id do contato a ser atualizado parcialmente.") BigInteger id,
 			@RequestBody ContatoForm form) throws IllegalAccessException, InvocationTargetException {
 		Optional<Contato> contatoAtual = contatoService.findById(id);
-		if (contatoAtual.isPresent()) {
-			Contato contatoAtualizado = form.converterToEntity();
-
-			utilsBean.copyProperties(contatoAtual.get(), contatoAtualizado);
-
-			contatoService.update(id, contatoAtual.get());
-			return ResponseEntity.ok(ContatoDto.converter(contatoAtual.get()));
+		if (!contatoAtual.isPresent()) {
+			return ResponseEntity.notFound().build(); 
 		}
+		Contato contatoAtualizado = form.converterToEntity();
+		utilsBean.copyProperties(contatoAtual.get(), contatoAtualizado);
+		contatoService.update(id, contatoAtual.get());
+		return ResponseEntity.ok(ContatoDto.converter(contatoAtual.get()));
+	}
+	
+	@GetMapping("/cep")
+	@Operation(description = "Lista de contatos a partir de um cep", tags = { "Contato" }, responses = {
+			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoDto.class))) })
+	public ResponseEntity<List<ContatoDto>> listaContatosPorCep(@RequestParam(required = true) String cep) {
+		Optional<List<Contato>> contatos = contatoService.findByCep(cep);
+		if (contatos.isPresent())
+			return ResponseEntity.ok(ContatoDto.converterLista(contatos.get()));
+		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/rua")
+	@Operation(description = "Lista de contatos a partir de uma rua", tags = { "Contato" }, responses = {
+			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoDto.class))) })
+	public ResponseEntity<List<ContatoDto>> listaContatosPorRua(@RequestParam(required = true) String rua) {
+		Optional<List<Contato>> contatos = contatoService.findByRua(rua);
+		if (contatos.isPresent())
+			return ResponseEntity.ok(ContatoDto.converterLista(contatos.get()));
+		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/numero")
+	@Operation(description = "Lista de contatos a partir de uma rua", tags = { "Contato" }, responses = {
+			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoDto.class))) })
+	public ResponseEntity<List<ContatoDto>> listaContatosByCep(@RequestParam(required = true) Integer numero) {
+		Optional<List<Contato>> contatos = contatoService.findByNumero(numero);
+		if (contatos.isPresent())
+			return ResponseEntity.ok(ContatoDto.converterLista(contatos.get()));
 		return ResponseEntity.notFound().build();
 	}
 
