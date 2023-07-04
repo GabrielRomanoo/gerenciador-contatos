@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.gerenciadorcontatos.model.entity.Contato;
-import br.com.gerenciadorcontatos.model.entity.Endereco;
 import lombok.Builder;
 import lombok.Data;
 
@@ -27,12 +26,12 @@ public class ContatoDto {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataNascimento;
 
-	private List<Endereco> enderecos;
+	private List<EnderecoDto> enderecos;
 
 	public static ContatoDto converter(Contato contato) {
 		return ContatoDto.builder().id(contato.getId()).nome(contato.getNome()).email(contato.getEmail())
 				.telefone(contato.getTelefone()).dataNascimento(contato.getDataNascimento())
-				.enderecos(contato.getListaEnderecos()).build();
+				.enderecos(EnderecoDto.converterLista(contato.getListaEnderecos())).build();
 	}	
 
 	public static List<ContatoDto> converterLista(List<Contato> contatos) {
