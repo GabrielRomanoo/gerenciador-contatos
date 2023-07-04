@@ -2,7 +2,9 @@ package br.com.gerenciadorcontatos.model.form;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -45,8 +47,8 @@ public class ContatoForm {
 				.nome(this.nome)
 				.email(this.email)
 				.telefone(this.telefone)
-				.dataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-				.listaEnderecos(EnderecoForm.converterToEntity(this.enderecos))
+				.dataNascimento(Objects.isNull(dataNascimento) ? null : LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+				.listaEnderecos(Objects.isNull(enderecos) ? Arrays.asList() : EnderecoForm.converterToEntity(this.enderecos))
 				.build();
 	}
 }
