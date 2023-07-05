@@ -20,7 +20,7 @@ public class EnderecoForm {
 	@Schema(required = false, description = "Número do endereço")
 	private Integer numero;
 
-	@Pattern(regexp = "\\d{5}-\\d{3}")
+	@Pattern(regexp = "\\d{5}-\\d{3}", message = "O CEP deve estar no formato 00000-000.")
 	@Schema(required = false, example = "00000-000", description = "Número de CEP")
 	private String cep;
 
