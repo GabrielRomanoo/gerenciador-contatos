@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.gerenciadorcontatos.model.entity.Contato;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import lombok.Data;
 @Builder
 public class ContatoDto {
 
+	@Schema(nullable = false, description = "ID do contato")
 	private BigInteger id;
 
 	private String nome;

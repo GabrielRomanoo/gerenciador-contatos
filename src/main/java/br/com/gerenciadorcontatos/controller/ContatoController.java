@@ -72,8 +72,7 @@ public class ContatoController {
 	@DeleteMapping("/{id}")
 	@Operation(description = "Deleta um contato a partir do Id.", tags = { "Contato" })
 	@Transactional
-	public ResponseEntity<?> remover(
-			@PathVariable @Parameter(description = "O Id do contato a ser deletado.") BigInteger id) {
+	public ResponseEntity<?> remover(@PathVariable @Parameter(description = "O Id do contato a ser deletado.") BigInteger id) {
 		if (contatoService.findById(id).isPresent()) {
 			contatoService.delete(id);
 			return ResponseEntity.noContent().build();
