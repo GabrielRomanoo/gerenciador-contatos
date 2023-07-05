@@ -11,7 +11,7 @@ Antes de executar a aplicação, certifique-se de ter as seguintes ferramentas i
 
 ## Configuração
 
-Siga as etapas abaixo para configurar e executar localmente a aplicação (para pacote jar):
+### Etapas para configurar e executar localmente a aplicação:
 
 1. Faça o clone do repositório:
 ```bash
@@ -39,9 +39,13 @@ cd target
 java -jar .\gerenciadorcontatos-0.0.1-SNAPSHOT.jar
 ```
 
-Agora a aplicação está em execução e pronta para ser utilizada.
+Agora a aplicação está em execução e pronta para ser utilizada localmente.
 
-## Endpoints Principais
+### Etapas para acessar aplicação a aplicacao via URL:
+
+- Entre em contato comigo para obter a URL da API hospedada em nuvem.
+
+## Endpoints CRUD
 
 A API possui os seguintes endpoints para realizar operações CRUD de contatos:
 
@@ -137,3 +141,10 @@ Substitua {id} pelo identificador do contato que deseja excluir.
 
 - Método: GET
 - Endpoint: /contatos/endereco/cep
+
+## Tecnologias
+
+- Spring 2.7.13
+- Java 8
+- Maven
+- Banco de Dados Relacional H2
