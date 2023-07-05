@@ -41,7 +41,7 @@ java -jar .\gerenciadorcontatos-0.0.1-SNAPSHOT.jar
 
 Agora a aplicação está em execução e pronta para ser utilizada.
 
-## Endpoints
+## Endpoints Principais
 
 A API possui os seguintes endpoints para realizar operações CRUD de contatos:
 
@@ -121,3 +121,19 @@ Exemplo de corpo da requisição:
 
 Substitua {id} pelo identificador do contato que deseja excluir.
 
+## Endpoints de Consulta
+
+### Listar contatos a partir de uma rua
+
+- Método: GET
+- Endpoint: /contatos/endereco/rua
+
+### Listar contatos a partir de um número
+
+- Método: GET
+- Endpoint: /contatos/endereco/numero
+
+### Listar contatos a partir de um CEP
+
+- Método: GET
+- Endpoint: /contatos/endereco/cep
