@@ -37,7 +37,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/contato")
+@RequestMapping("/contatos")
 @Tag(name = "Contato", description = "Endpoints para manipuação de um Contato")
 @RequiredArgsConstructor
 public class ContatoController {
