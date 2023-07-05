@@ -120,3 +120,7 @@ data/
 
 .settings/
 
+data/exemplo.mv.db
+
+target/classes/application.properties
+
