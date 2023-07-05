@@ -109,32 +109,32 @@ public class ContatoController {
 		return ResponseEntity.ok(ContatoDto.converter(contatoAtual.get()));
 	}
 	
-	@GetMapping("/cep")
+	@GetMapping("/endereco/cep")
 	@Operation(description = "Lista de contatos a partir de um cep", tags = { "Contato" }, responses = {
 			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoDto.class))) })
 	public ResponseEntity<List<ContatoDto>> listaContatosPorCep(@RequestParam(required = true) String cep) {
 		Optional<List<Contato>> contatos = contatoService.findByCep(cep);
-		if (contatos.isPresent())
+		if (contatos.isPresent() && !contatos.get().isEmpty())
 			return ResponseEntity.ok(ContatoDto.converterLista(contatos.get()));
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/rua")
+	@GetMapping("/endereco/rua")
 	@Operation(description = "Lista de contatos a partir de uma rua", tags = { "Contato" }, responses = {
 			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoDto.class))) })
 	public ResponseEntity<List<ContatoDto>> listaContatosPorRua(@RequestParam(required = true) String rua) {
 		Optional<List<Contato>> contatos = contatoService.findByRua(rua);
-		if (contatos.isPresent())
+		if (contatos.isPresent() && !contatos.get().isEmpty())
 			return ResponseEntity.ok(ContatoDto.converterLista(contatos.get()));
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/numero")
+	@GetMapping("/endereco/numero")
 	@Operation(description = "Lista de contatos a partir de uma rua", tags = { "Contato" }, responses = {
 			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoDto.class))) })
 	public ResponseEntity<List<ContatoDto>> listaContatosByCep(@RequestParam(required = true) Integer numero) {
 		Optional<List<Contato>> contatos = contatoService.findByNumero(numero);
-		if (contatos.isPresent())
+		if (contatos.isPresent() && !contatos.get().isEmpty())
 			return ResponseEntity.ok(ContatoDto.converterLista(contatos.get()));
 		return ResponseEntity.notFound().build();
 	}
