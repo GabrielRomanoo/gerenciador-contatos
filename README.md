@@ -148,3 +148,9 @@ Substitua {id} pelo identificador do contato que deseja excluir.
 - Java 8
 - Maven
 - Banco de Dados Relacional H2
+
+## Swagger
+```url 
+localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/ 
+```
+![image](https://github.com/GabrielRomanoo/gerenciador-contatos/assets/51065003/802596ac-0e87-4c17-9270-7802662cb2ba)
