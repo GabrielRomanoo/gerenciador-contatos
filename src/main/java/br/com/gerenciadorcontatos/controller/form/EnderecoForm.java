@@ -3,8 +3,6 @@ package br.com.gerenciadorcontatos.controller.form;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.constraints.Pattern;
-
 import br.com.gerenciadorcontatos.model.entity.Endereco;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -20,7 +18,6 @@ public class EnderecoForm {
 	@Schema(required = false, description = "Número do endereço")
 	private Integer numero;
 
-	@Pattern(regexp = "\\d{5}-\\d{3}", message = "O CEP deve estar no formato 00000-000.")
 	@Schema(required = false, example = "00000-000", description = "Número de CEP")
 	private String cep;
 
