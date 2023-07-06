@@ -56,7 +56,7 @@ public class ContatoController {
 		return ResponseEntity.created(uri).body(ContatoDto.converter(contato));
 	}
 
-	@GetMapping // traz uma lista, se tiver o codigo da turma, traz apenas um
+	@GetMapping
 	@Operation(description = "Lista um ou todos os contatos", tags = { "Contato" }, responses = {
 			@ApiResponse(description = "Success", responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoDto.class))) })
 	public ResponseEntity<List<ContatoDto>> lista(@RequestParam(required = false) BigInteger id) {
@@ -95,7 +95,7 @@ public class ContatoController {
 
 	@PatchMapping("/{id}")
 	@Operation(description = "Atualiza parcialmente os dados de um contato", tags = { "Contato" })
-	@Transactional // avisa pro spring que é pra commitar a transacao, Métodos anotados com @Transactional serão executados dentro de um contexto transacional, Ao finalizar o método, o Spring efetuará o commit automático da transação, caso nenhuma exception tenha sido lançada.
+	@Transactional
 	public ResponseEntity<?> atualizarParcial(
 			@PathVariable @Parameter(description = "O Id do contato a ser atualizado parcialmente.") BigInteger id,
 			@RequestBody ContatoForm form) throws IllegalAccessException, InvocationTargetException {
